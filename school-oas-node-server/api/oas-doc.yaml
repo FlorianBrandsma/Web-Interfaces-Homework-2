@@ -1,0 +1,438 @@
+openapi: 3.0.0
+info:
+  title: School API
+  version: '1.0'
+paths:
+  /students:
+    get:
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    address:
+                      type: string
+                    class:
+                      type: string
+                    id:
+                      type: integer
+      summary: Get students
+      operationId: getStudents
+    post:
+      responses:
+        '200':
+          description: Student added
+          content:
+            application/json:
+              schema:
+                type: object
+      summary: Add student
+      operationId: addStudent
+      requestBody:
+        x-name: students
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                address:
+                  type: string
+                class:
+                  type: string
+              required:
+                - name
+                - address
+                - class
+  '/students/{id}':
+    get:
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  address:
+                    type: string
+                  class:
+                    type: string
+                  id:
+                    type: integer
+        '404':
+          description: Student not found
+      summary: Get student by ID
+      operationId: getStudentById
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+    put:
+      responses:
+        '200':
+          description: Student updated
+          content:
+            application/json:
+              schema:
+                type: object
+        '404':
+          description: Student does not exist
+      summary: Update student
+      operationId: updateStudent
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        x-name: students
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+                - address
+                - class
+              properties:
+                name:
+                  type: string
+                address:
+                  type: string
+                class:
+                  type: string
+    delete:
+      responses:
+        '200':
+          description: Student deleted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+        '404':
+          description: Student does not exist
+      summary: Delete student
+      operationId: deleteStudent
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+  /courses:
+    get:
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    description:
+                      type: string
+                    id:
+                      type: integer
+      summary: Get courses
+      operationId: getCourses
+    post:
+      responses:
+        '200':
+          description: Course added
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+      summary: Add course
+      operationId: addCourse
+      requestBody:
+        x-name: courses
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+                - description
+              properties:
+                name:
+                  type: string
+                description:
+                  type: string
+  '/courses/{id}':
+    get:
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  description:
+                    type: string
+                  id:
+                    type: integer
+        '404':
+          description: Course not found
+      summary: Get course by ID
+      operationId: getCourseById
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+    put:
+      responses:
+        '200':
+          description: Course updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+        '404':
+          description: Course does not exist
+      summary: Update course
+      operationId: updateCourse
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        x-name: courses
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                description:
+                  type: string
+              required:
+                - name
+                - description
+    delete:
+      responses:
+        '200':
+          description: Course deleted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+        '404':
+          description: Course does not exist
+      summary: Delete course
+      operationId: deleteCourse
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+  /grades:
+    get:
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    grade:
+                      type: integer
+                    studentId:
+                      type: integer
+                    courseId:
+                      type: integer
+                    id:
+                      type: integer
+      summary: Get grades
+      operationId: getGrades
+  '/grades/{id}':
+    get:
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  grade:
+                    type: integer
+                  studentId:
+                    type: integer
+                  courseId:
+                    type: integer
+                  id:
+                    type: integer
+        '404':
+          description: Grade not found
+      summary: Get grade by ID
+      operationId: getGradeById
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+    put:
+      responses:
+        '200':
+          description: Grade updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+        '404':
+          description: Grade does not exist
+      summary: Update grade
+      operationId: updateGrade
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        x-name: grades
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                grade:
+                  type: integer
+                studentId:
+                  type: integer
+                courseId:
+                  type: integer
+              required:
+                - grade
+                - studentId
+                - courseId
+    delete:
+      responses:
+        '200':
+          description: Grade deleted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+        '404':
+          description: Grade does not exist
+      summary: Delete grade
+      operationId: deleteGrade
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+  '/grades/{courseId}/{studentId}':
+    post:
+      responses:
+        '200':
+          description: Grade added
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+        '404':
+          description: Student or course does not exist
+      summary: Add grade
+      parameters:
+        - in: path
+          name: courseId
+          required: true
+          schema:
+            type: integer
+        - in: path
+          name: studentId
+          required: true
+          schema:
+            type: string
+      requestBody:
+        x-name: grades
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                grade:
+                  type: string
+                studentId:
+                  type: string
+                courseId:
+                  type: string
+      operationId: addGrade
+    parameters:
+      - name: courseId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: studentId
+        in: path
+        required: true
+        schema:
+          type: string
+servers:
+  - url: /api
+components:
+  schemas:
+    new-model:
+      type: object
+      properties: {}
